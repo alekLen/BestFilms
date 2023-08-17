@@ -40,11 +40,13 @@ body{
     outline: none;
     border: none;
     width: 700px;
-    justify-items:flex-end;
+    justify-items: flex-end;
     border-radius: 6px;
     background-color: #EBECF0;
     box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
     transition: all 0.1s ease-in-out;
+    font-weight: bold;
+    font-family:Comfortaa;
 }
 
 
@@ -61,7 +63,10 @@ body{
     transition: all 0.2s ease-in-out;
     align-items: center;
     margin-left: 100px;
-    padding-left: 50px;
+    padding-left: 50px;    
+    font-weight: bold;
+    text-transform: uppercase;  
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .card1 {
@@ -69,17 +74,19 @@ body{
     align-items: center;
     border-radius: 12px;
     box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
-    font-size: 80px;
-    font-weight:bold;
+    font-size: 60px;
+    font-weight: bold;
     font-family: Stencil;
     background-color: #EBECF0;
     padding: 5px;
     padding-left: 50px;
     color: darkviolet;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-.c{
-    font-size:30px;
-    font-weight:bold;
-    margin-left:600px;
+.c {
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 600px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
