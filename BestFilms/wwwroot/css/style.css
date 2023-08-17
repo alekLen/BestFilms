@@ -1,0 +1,85 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color:blueviolet;
+    font-size: 16px;
+    color: #BABECC;
+    font-family: Montserrat;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+    padding-top:0;
+    
+}
+
+.request{
+    padding: 50px;
+    gap: 25px;
+    align-items: center;
+    width:75%;
+}
+
+.img {
+    background-color: mediumorchid;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
+}
+
+.card {
+    margin: 0;
+    padding: 15px;
+    overflow-wrap: break-word;
+    color: #565860;
+    resize: none;
+    line-height: 30px;
+    outline: none;
+    border: none;
+    width: 700px;
+    justify-items:flex-end;
+    border-radius: 6px;
+    background-color: #EBECF0;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
+    transition: all 0.1s ease-in-out;
+}
+
+
+.card2 {
+    color: mediumvioletred;
+    font-size: 4em;
+    font-family: 'Segoe Print';
+    border: none;
+    line-height: 35px;
+    cursor: pointer;
+    background-color: thistle;
+    border-radius: 12px;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    transition: all 0.2s ease-in-out;
+    align-items: center;
+    margin-left: 100px;
+    padding-left: 50px;
+}
+
+.card1 {
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    font-size: 80px;
+    font-weight:bold;
+    font-family: Stencil;
+    background-color: #EBECF0;
+    padding: 5px;
+    padding-left: 50px;
+    color: darkviolet;
+}
+.c{
+    font-size:30px;
+    font-weight:bold;
+    margin-left:600px;
+}
+
