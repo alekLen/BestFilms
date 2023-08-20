@@ -7,7 +7,22 @@ body{
     color: white;
     font-family: Montserrat;
 }
-
+.b {
+    background-color: cadetblue;
+    width:400px;
+    padding:15px;
+}
+.b1{
+    padding:30px;
+    padding-left:100px;
+    padding-bottom:0;
+}
+.b2 {
+    width: 570px;
+}
+.b3{
+    padding-left:135px;
+}
 .container {
     display: flex;
     flex-direction: row;
@@ -97,4 +112,29 @@ body{
     padding-top:10px;
     padding-bottom:0;
     justify-content: space-between;
+}
+.c2 {
+    margin: 30px;
+    padding: 5px;
+    overflow-wrap: break-word;
+    color: #565860;
+    resize: none;
+    line-height: 30px;
+    outline: none;
+    border: none;
+    width: 270px;
+    justify-items: flex-end;
+    border-radius: 6px;
+    background-color: thistle;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
+    transition: all 0.1s ease-in-out;
+    font-weight: bold;
+    font-family: Comfortaa;
+}
+.c3{
+    margin:3px;
+    width:180px;
+}
+.c4{
+    margin-top:20px;
 }
