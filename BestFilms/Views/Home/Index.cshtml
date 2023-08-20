@@ -1,9 +1,8 @@
-﻿
-
-<div>
+﻿  
+       <p class="c2"> <a asp-action="Create">добавить новый фильм</a></p>
+<div >
     <div><h1 class="request card2">  10 лучших фильмов</h1></div>
-   
-
+      
         @foreach (var f in ViewBag.Films)
         {
         <div class="container">
@@ -14,8 +13,13 @@
                 <div class="c"> @f.Year</div>
                 <div>Режиссёр:&nbsp;&nbsp;&nbsp; @f.Director</div><br>
             <div class="card">@f.Story</div>
-            </div>    
             </div>
+            <div class="c4">
+            <p class="c2 c3"> <a asp-action="Create">просмотр</a></p>
+            <p class="c2 c3"> <a asp-action="Create">редактировать</a></p>
+            <p class="c2 c3"> <a asp-action="Create">удалить</a></p>
+            </div>
+        </div>
         }
     
 </div>
