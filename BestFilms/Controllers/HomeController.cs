@@ -60,6 +60,45 @@ namespace BestFilms.Controllers
             }
             return View(film);
         }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null || db.Films == null)
+            {
+                return NotFound();
+            }
 
+            var f = await db.Films
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (f == null)
+            {
+                return NotFound();
+            }
+
+            return View(f);
+        }
+      
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (db.Films == null)
+            {
+                return Problem("Entity set 'FilmsContext.Films'  is null.");
+            }
+            var f = await db.Films.FindAsync(id);
+            if (f != null)
+            {
+                db.Films.Remove(f);
+            }
+
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool StudentExists(int id)
+        {
+            return (db.Films?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
     }
+
 }
