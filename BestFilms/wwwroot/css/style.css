@@ -26,6 +26,9 @@ body{
 .h{
     padding-left:20px;
 }
+.h1{
+    width:350px;
+}
 .container {
     display: flex;
     flex-direction: row;

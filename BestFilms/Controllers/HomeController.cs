@@ -95,9 +95,98 @@ namespace BestFilms.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(int id)
+        private bool FilmExists(int id)
         {
             return (db.Films?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || db.Films == null)
+            {
+                return NotFound();
+            }
+
+            var f = await db.Films.FindAsync(id);
+            if (f == null)
+            {
+                return NotFound();
+            }
+            return View(f);
+        }
+     
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Genre,Director,Year,Story,Photo")] Film f)
+        {
+            if (id != f.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    var f1 = await db.Films.FindAsync(id);
+                    if (f1 != null)
+                    {
+                        if (f1.Photo != f.Photo)
+                        {
+                            deletePhoto(f1.Photo);
+                        }
+                        db.Update(f);
+                        await db.SaveChangesAsync();
+                    }
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FilmExists(f.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(f);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Poster(int? id, IFormFile photo)
+        {
+            
+            if (id == null || db.Films == null)
+            {
+                return NotFound();
+            }
+
+            var f = await db.Films.FindAsync(id);
+          
+            if (f == null)
+            {
+                return NotFound();
+            }
+            f.Photo = "/Posters/" + photo.FileName;
+            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + f.Photo, FileMode.Create))
+            {
+                await photo.CopyToAsync(fileStream); // копируем файл в поток
+            }
+            return View("Edit",f);
+        }
+        public void deletePhoto(string s)
+        {
+            try
+            {
+                if (System.IO.File.Exists(s))
+                {
+                    System.IO.File.Delete(s);
+                }
+            }
+            catch  {   }
         }
     }
 
