@@ -29,6 +29,10 @@ body{
 .h1{
     width:350px;
 }
+.h2 {
+   
+    width: 750px;
+}
 .container {
     display: flex;
     flex-direction: row;

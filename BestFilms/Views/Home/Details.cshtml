@@ -1,0 +1,38 @@
+﻿@model BestFilms.Models.Film
+
+
+<h1 class="h h2">О фильме</h1>
+
+<div class="container">
+    <div class="img"><img src=@Url.Content( Model.Photo ) width="150" height="200"> </div>
+    <div>
+
+
+        <h3 class="col-sm-10 h">
+            @Html.DisplayFor(model => model.Name)
+        </h3>
+        <br />
+        <div class="col-sm-10 h">
+            @Html.DisplayFor(model => model.Genre)
+        </div>
+        <br />
+        <div class="col-sm-10 h">
+            @Html.DisplayFor(model => model.Director)
+        </div>
+        <br />
+        <div class="col-sm-10 h">
+            @Html.DisplayFor(model => model.Year)
+        </div>
+        <br />
+    </div>
+</div>
+<div class="container">
+<div class=" h2">
+    @Html.DisplayFor(model => model.Story)
+</div>
+</div>
+
+    <div class="b1 ">
+        <a asp-action="Index" class="c2">Вернуться к списку фильмов</a>
+    </div>
+
