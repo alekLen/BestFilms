@@ -17,7 +17,6 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 // Добавляем сервисы MVC
 builder.Services.AddControllersWithViews();
-
 var app = builder.Build();
 app.UseStaticFiles();
 app.MapControllerRoute(

@@ -10,20 +10,19 @@ namespace BestFilms.Controllers
     {
         IWebHostEnvironment _appEnvironment;
         FilmsContext db;
-       public  string oldPhoto { get; set; }
-       public string newPhoto { get; set; }
+        ClassPhoto p;
         public HomeController(FilmsContext context, IWebHostEnvironment appEnvironment)
-        {          
+        {       
+            
                 db = context;
             _appEnvironment = appEnvironment;
-             oldPhoto = "";
-             newPhoto = "";
+            p = new();
         }
 
         public async Task<IActionResult> Index()
         {
-            if (newPhoto != "")
-                deletePhoto(newPhoto);
+            if (p.newPhoto != "")
+                deletePhoto(p.newPhoto);
             IEnumerable<Film> f = await Task.Run(() => db.Films);
             ViewBag.Films = f;
             return View();
@@ -151,10 +150,10 @@ namespace BestFilms.Controllers
                 {                   
                      db.Update(f);
                      await db.SaveChangesAsync();
-                    if (newPhoto != oldPhoto)
-                        deletePhoto(oldPhoto);
-                    newPhoto = "";
-                    oldPhoto = "";
+                    if (p.newPhoto != p.oldPhoto)
+                        deletePhoto(p.oldPhoto);
+                    p.newPhoto = "";
+                    p.oldPhoto = "";
                    
                 }
                 catch (DbUpdateConcurrencyException)
@@ -184,7 +183,7 @@ namespace BestFilms.Controllers
 
             var f = await db.Films.FindAsync(id);
             if (f != null)
-              oldPhoto = f.Photo;
+              p.oldPhoto = f.Photo;
           
             if (f == null)
             {
@@ -194,7 +193,7 @@ namespace BestFilms.Controllers
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + f.Photo, FileMode.Create))
             {
                 await photo.CopyToAsync(fileStream); // копируем файл в поток
-                newPhoto = f.Photo;
+                p.newPhoto = f.Photo;
             }
             return View("Edit",f);
         }

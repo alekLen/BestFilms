@@ -6,7 +6,7 @@
         @foreach (var f in ViewBag.Films)
         {
         <div class="container">
-            <div class=" img "><img src=@Url.Content(f.Photo) width="350" height="500"></img></div>
+            <div class=" img i"><img src=@Url.Content(f.Photo) class="im"></img></div>
             <div class="c1">
             <div class="card1">@f.Name</div><br>
             <div>@f.Genre</div>

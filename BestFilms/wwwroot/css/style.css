@@ -54,6 +54,18 @@ body{
     border-radius: 6px;
     box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
 }
+.i {
+    width: 400px;
+    height: 550px;
+}
+.i1 {
+    width :150px;
+    height:200px;
+}
+.im {
+    max-width:100%;
+    height:auto;
+}
 
 .card {
     margin: 0;

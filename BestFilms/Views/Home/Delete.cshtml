@@ -1,6 +1,8 @@
 ﻿@model BestFilms.Models.Film
 
-
+<div class="b1 ">
+    <a asp-action="Index" class="c2">Вернуться к списку фильмов</a>
+</div>
 <h1 class="h">вы уверены, что хотите удалить этот фильм?</h1>
 
 <div class="container">
@@ -29,9 +31,6 @@
 
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="удалить фильм" class="btn btn-danger b1 c2" /> 
-        <div class="b1 ">
-            <a asp-action="Index" class="c2">Вернуться к списку фильмов</a>
-        </div>
+        <input type="submit" value="удалить фильм" class="btn btn-danger b1 c2" />       
     </form>
 

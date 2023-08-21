@@ -1,10 +1,13 @@
 ﻿@model BestFilms.Models.Film
+<div class="b1 ">
+    <a asp-action="Index" class="c2">Вернуться к списку фильмов</a>
+</div>
 <h1 class=" b1 b3">Редактирование фильма</h1>
 
 <div class="container">
      <div>
             <div class="img">
-                <img src=@Url.Content( Model.Photo ) width="150" height="200" id="previewContainer">
+                <img src=@Url.Content( Model.Photo ) class="im i1" id="previewContainer">
             </div> 
             <form asp-action="Poster" asp-controller="Home" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
@@ -65,6 +68,4 @@
 
 
 
-<div class="b1 ">
-    <a asp-action="Index" class="c2">Вернуться к списку фильмов</a>
-</div>
+
