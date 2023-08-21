@@ -28,6 +28,22 @@ namespace BestFilms.Controllers
             ViewBag.Films = f;
             return View();
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || db.Films == null)
+            {
+                return NotFound();
+            }
+
+            var f = await db.Films
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (f == null)
+            {
+                return NotFound();
+            }
+
+            return View(f);
+        }
         public IActionResult Create()
         {
             return View();
