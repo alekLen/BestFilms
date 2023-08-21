@@ -109,9 +109,10 @@ namespace BestFilms.Controllers
             if (f != null)
             {
                 db.Films.Remove(f);
+             
             }
-
             await db.SaveChangesAsync();
+            ClearPhoto();
             return RedirectToAction(nameof(Index));
         }
 
