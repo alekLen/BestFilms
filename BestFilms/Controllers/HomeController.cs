@@ -10,14 +10,20 @@ namespace BestFilms.Controllers
     {
         IWebHostEnvironment _appEnvironment;
         FilmsContext db;
+       public  string oldPhoto { get; set; }
+       public string newPhoto { get; set; }
         public HomeController(FilmsContext context, IWebHostEnvironment appEnvironment)
         {          
                 db = context;
             _appEnvironment = appEnvironment;
+             oldPhoto = "";
+             newPhoto = "";
         }
 
         public async Task<IActionResult> Index()
         {
+            if (newPhoto != "")
+                deletePhoto(newPhoto);
             IEnumerable<Film> f = await Task.Run(() => db.Films);
             ViewBag.Films = f;
             return View();
@@ -126,18 +132,14 @@ namespace BestFilms.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
-
-                    var f1 = await db.Films.FindAsync(id);
-                    if (f1 != null)
-                    {
-                        if (f1.Photo != f.Photo)
-                        {
-                            deletePhoto(f1.Photo);
-                        }
-                        db.Update(f);
-                        await db.SaveChangesAsync();
-                    }
+                {                   
+                     db.Update(f);
+                     await db.SaveChangesAsync();
+                    if (newPhoto != oldPhoto)
+                        deletePhoto(oldPhoto);
+                    newPhoto = "";
+                    oldPhoto = "";
+                   
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -165,6 +167,8 @@ namespace BestFilms.Controllers
             }
 
             var f = await db.Films.FindAsync(id);
+            if (f != null)
+              oldPhoto = f.Photo;
           
             if (f == null)
             {
@@ -174,6 +178,7 @@ namespace BestFilms.Controllers
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + f.Photo, FileMode.Create))
             {
                 await photo.CopyToAsync(fileStream); // копируем файл в поток
+                newPhoto = f.Photo;
             }
             return View("Edit",f);
         }
@@ -187,7 +192,7 @@ namespace BestFilms.Controllers
                 }
             }
             catch  {   }
-        }
+        }    
     }
 
 }
