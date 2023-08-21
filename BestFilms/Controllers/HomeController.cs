@@ -162,11 +162,13 @@ namespace BestFilms.Controllers
                         throw;
                     }
                 }
+                ClearPhoto();
                 return RedirectToAction(nameof(Index));
             }
+            ClearPhoto();
             return View( f);
         }
-        [HttpPost]
+      /*  [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit1(int id, [Bind("Id,Name,Genre,Director,Year,Story,Photo")] Film f, IFormFile photo)
         {
@@ -214,7 +216,7 @@ namespace BestFilms.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View("Edit1", f);
-        }
+        }*/
 
         [HttpPost]
        public async Task<IActionResult> Poster(int? id, IFormFile photo)
@@ -246,7 +248,25 @@ namespace BestFilms.Controllers
                 }
             }
             catch  {   }
-        }    
+        }  
+        void ClearPhoto()
+        {
+            foreach(var f1 in Directory.GetFiles(_appEnvironment.WebRootPath + "/Posters/"))
+            {
+                bool q = false;
+                foreach (var f in db.Films)
+                {
+                    if(f.Photo == "/Posters/"+Path.GetFileName(f1))
+                        q=true;
+                }
+                if(!q)
+                {
+                    deletePhoto(f1);
+                   
+                }
+            }
+        }
+
     }
 
 }
