@@ -10,19 +10,18 @@ namespace BestFilms.Controllers
     {
         IWebHostEnvironment _appEnvironment;
         FilmsContext db;
-        ClassPhoto p;
+        
         public HomeController(FilmsContext context, IWebHostEnvironment appEnvironment)
         {       
             
                 db = context;
             _appEnvironment = appEnvironment;
-            p = new();
+           
         }
 
         public async Task<IActionResult> Index()
         {
-            if (p.newPhoto != "")
-                deletePhoto(p.newPhoto);
+           
             IEnumerable<Film> f = await Task.Run(() => db.Films);
             ViewBag.Films = f;
             return View();
@@ -149,11 +148,7 @@ namespace BestFilms.Controllers
                 try
                 {                   
                      db.Update(f);
-                     await db.SaveChangesAsync();
-                    if (p.newPhoto != p.oldPhoto)
-                        deletePhoto(p.oldPhoto);
-                    p.newPhoto = "";
-                    p.oldPhoto = "";
+                     await db.SaveChangesAsync();                  
                    
                 }
                 catch (DbUpdateConcurrencyException)
@@ -169,22 +164,67 @@ namespace BestFilms.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(f);
+            return View( f);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit1(int id, [Bind("Id,Name,Genre,Director,Year,Story,Photo")] Film f, IFormFile photo)
+        {
+            if (id == null || db.Films == null)
+            {
+                return NotFound();
+            }
+        
+                string oldPhoto = f.Photo;
+
+            if (f == null)
+            {
+                return NotFound();
+            }
+            if(photo.FileName!=null)
+              f.Photo = "/Posters/" + photo.FileName;
+            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + f.Photo, FileMode.Create))
+            {
+                await photo.CopyToAsync(fileStream); // копируем файл в поток             
+            }
+            if (id != f.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    db.Update(f);
+                    await db.SaveChangesAsync();                   
+                     deletePhoto(oldPhoto);                  
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FilmExists(f.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View("Edit1", f);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Poster(int? id, IFormFile photo)
+       public async Task<IActionResult> Poster(int? id, IFormFile photo)
         {
             
             if (id == null || db.Films == null)
             {
                 return NotFound();
             }
-
-            var f = await db.Films.FindAsync(id);
-            if (f != null)
-              p.oldPhoto = f.Photo;
-          
+            var f = await db.Films.FindAsync(id);           
             if (f == null)
             {
                 return NotFound();
@@ -193,10 +233,9 @@ namespace BestFilms.Controllers
             using (var fileStream = new FileStream(_appEnvironment.WebRootPath + f.Photo, FileMode.Create))
             {
                 await photo.CopyToAsync(fileStream); // копируем файл в поток
-                p.newPhoto = f.Photo;
             }
             return View("Edit",f);
-        }
+       }
         public void deletePhoto(string s)
         {
             try

@@ -6,13 +6,15 @@
 
 <div class="container">
      <div>
+        <span class="c3">выберите файл<br />чобы изменить постер</span>
             <div class="img">
                 <img src=@Url.Content( Model.Photo ) class="im i1" id="previewContainer">
             </div> 
             <form asp-action="Poster" asp-controller="Home" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
-            <input type="file"  name="Photo" id="fileInput"  /><br />
-            <input type="submit" value="изменить постер"  />
+            <input type="file"  asp-for="Photo" /><br />
+            <input type="submit" value="изменить постер" /><br />
+            <span class="c3">нажмите редактировать фильм<br /> для сохранения изменений</span>
             </form>
         </div> <div>
 <div class="b1 b2">
@@ -47,7 +49,7 @@
                     <span asp-validation-for="Story" class="text-danger"></span>
                 </div><br />
                         <div class="form-group">
-                            <span>Постер</span><br />
+                            <span>Постер</span><br />                        
                             <input asp-for="Photo" class="form-control h1" readonly="readonly"/>
                             <span asp-validation-for="Photo" class="text-danger"></span>
                         </div><br />
