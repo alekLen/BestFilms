@@ -67,16 +67,21 @@ namespace BestFilms.Controllers
                 f.Year = film.Year;
                 f.Story = film.Story;
                 f.Photo = path;
-                try
+                if (ModelState.IsValid)
                 {
-                    db.Add(f);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    try
+                    {
+                        db.Add(f);
+                        await db.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch
+                    {
+                        return View(film);
+                    }
                 }
-                catch
-                {
+                else
                     return View(film);
-                }
             }
             return View(film);
         }

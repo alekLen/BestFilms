@@ -1,0 +1,60 @@
+﻿@model BestFilms.Models.Film
+<div class="b1 ">
+    <a asp-action="Index" class="c2">Вернуться к списку фильмов</a>
+</div>
+<h1 class=" b1 b3">Редактирование фильма</h1>
+
+<div class="container">
+    <div>
+        <div class="b1 b2">
+            <div class="img ">
+                <div class="b">
+                    <form asp-action="Edit1" asp-controller="Home" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <span>Название фильма</span><br />
+                            <input asp-for="Name" class="form-control h1" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div><br /><br />
+                        <div class="form-group">
+                            <span>Жанр</span><br />
+                            <input asp-for="Genre" class="form-control h1" />
+                            <span asp-validation-for="Genre" class="text-danger"></span>
+                        </div><br />
+                        <div class="form-group">
+                            <span>Режиссёр</span><br />
+                            <input asp-for="Director" class="form-control h1" />
+                            <span asp-validation-for="Director" class="text-danger"></span>
+                        </div><br />
+                        <div class="form-group">
+                            <span>Год выхода фильма</span><br />
+                            <input asp-for="Year" class="form-control" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div><br />
+                        <div class="form-group">
+                            <span>Сюжет</span><br />
+                            <textarea asp-for="Story"></textarea>
+
+                            <span asp-validation-for="Story" class="text-danger"></span>
+                        </div><br />
+                        <div class="form-group">
+                            <span>Постер</span><br />
+                            <input asp-for="Photo" class="form-control h1" readonly="readonly" />
+                            <span>изменить на постер</span><br />
+                            <input type="file" name="Photo"  asp-for="Photo" /><br />
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div><br />
+
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <br /><br />
+                            <input type="submit" value="Редактировать фильм" class="btn btn-primary c2" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
