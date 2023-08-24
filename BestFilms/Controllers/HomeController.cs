@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.IO;
+using static System.Net.WebRequestMethods;
 
 namespace BestFilms.Controllers
 {
@@ -51,6 +52,12 @@ namespace BestFilms.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Genre,Director,Year,Story")] Film film, IFormFile photo)
         {
+            if (photo == null)
+                ModelState.AddModelError("", "вы не добавили постер");
+            DateTime today = DateTime.Today;
+            int currentYear = today.Year;
+            if (Convert.ToInt32(film.Year) < 1895|| Convert.ToInt32(film.Year)> currentYear)
+                ModelState.AddModelError("", "не корректный год");
             if (photo != null)
             {
                 // Путь к папке Files
@@ -148,6 +155,10 @@ namespace BestFilms.Controllers
             {
                 return NotFound();
             }
+            DateTime today = DateTime.Today;
+            int currentYear = today.Year;
+            if (Convert.ToInt32(f.Year) < 1895 || Convert.ToInt32(f.Year) > currentYear)
+                ModelState.AddModelError("", "не корректный год");
 
             if (ModelState.IsValid)
             {
