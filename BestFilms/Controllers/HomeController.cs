@@ -50,7 +50,7 @@ namespace BestFilms.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Genre,Director,Year,Story")] Film film, IFormFile photo)
+        public async Task<IActionResult> Create([Bind("Name,Genre,Director,Year,Story,")] Film film, IFormFile photo)
         {
             if (photo == null)
                 ModelState.AddModelError("", "вы не добавили постер");
